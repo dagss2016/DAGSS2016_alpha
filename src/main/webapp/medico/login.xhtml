@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+            <ui:define name="tituloPagina">
+                Acceso Médicos
+            </ui:define>
+
+            <ui:define name="contenido">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="dni" value="DNI:" />
+                        <h:inputText id="dni" value="#{medicoControlador.dni}"/>
+                        <h:outputLabel for="numColegiado" value="Núm. colegiado:" />
+                        <h:inputText id="numColegiado" value="#{medicoControlador.numeroColegiado}"/>                        
+                        <h:outputLabel for="password" value="Contraseña:" />
+                        <h:inputSecret id="password" value="#{medicoControlador.password}"/>
+                    </h:panelGrid>                    
+
+                    <h:commandButton value="Login" action="#{medicoControlador.doLogin()}"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

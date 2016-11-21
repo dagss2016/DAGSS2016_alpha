@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+            <ui:define name="tituloPagina">
+                Acceso Administradores
+            </ui:define>
+
+            <ui:define name="contenido">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="login" value="Nombre de usuario:" />
+                        <h:inputText id="login" value="#{administradorControlador.login}"/>
+                        <h:outputLabel for="password" value="Contraseña:" />
+                        <h:inputSecret id="password" value="#{administradorControlador.password}"/>
+                    </h:panelGrid>                    
+
+                    <h:commandButton value="Login" action="#{administradorControlador.doLogin()}"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

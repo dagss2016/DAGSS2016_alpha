@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+            <ui:define name="tituloPagina">
+                Gestión 'manual' de Citas
+            </ui:define>
+
+            <ui:define name="izquierda">
+                <ui:include src="/administrador/plantillas/menuAdministrador.xhtml"/>                
+            </ui:define>
+
+            <ui:define name="contenido">
+
+                <p:growl id="mensajes" life="3000" />
+
+                <h:form id="formularioListado">     
+                        <p:dataTable id="tablaListado"
+                                     value="#{gestionCitasControlador.citas}"
+                                     var="cita" 
+                                     selection="#{gestionCitasControlador.citaActual}"
+                                     selectionMode="single" 
+                                     paginator="true" paginatorPosition="bottom" rows="10" rowKey="#{cita.id}">
+
+                            <p:ajax event="rowSelect"   update="botonNuevo botonVer botonEditar botonBorrar"/>
+
+                            <f:facet name="header">
+                                <h:outputText value="Listado de Citas"/>
+                            </f:facet>                        
+
+                            <p:column headerText="Id">
+                                <p:outputLabel value="#{cita.id}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Paciente">
+                                <p:outputLabel value="#{cita.paciente.apellidos}, #{cita.paciente.nombre}" />
+                            </p:column>                    
+
+                            <p:column headerText="Medico">
+                                <p:outputLabel value="#{cita.medico.apellidos}, #{cita.medico.nombre}" />
+                            </p:column>                    
+
+                            <p:column headerText="Centro Salud">
+                                <p:outputLabel value="#{cita.medico.centroSalud.nombre} [#{cita.medico.centroSalud.direccion.localidad}]" />
+                            </p:column>                    
+
+                            <p:column headerText="Fecha">
+                                <p:outputLabel value="#{cita.fecha}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </p:outputLabel>
+                            </p:column>
+                            
+                            <p:column headerText="Hora">
+                                <p:outputLabel value="#{cita.hora}">
+                                    <f:convertDateTime pattern="hh:mm"/>
+                                </p:outputLabel>
+                            </p:column>
+
+                            <p:column headerText="Duracion">
+                                <p:outputLabel value="#{cita.duracion} "/>
+                            </p:column>
+
+                            <p:column headerText="Estado">
+                                <p:outputLabel value="#{cita.estado} "/>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="botonNuevo"  icon="ui-icon-plus"   value="Nueva"  actionListener="#{gestionCitasControlador.doNuevo()}" update=":formularioNuevo" oncomplete="PF('DialogoNuevo').show()"/>
+                                <p:commandButton id="botonVer"    icon="ui-icon-search" value="Ver"    update=":formularioVer" oncomplete="PF('DialogoVer').show()" disabled="#{empty gestionCitasControlador.citaActual}"/>
+                                <p:commandButton id="botonEditar" icon="ui-icon-pencil" value="Editar" update=":formularioEditar" oncomplete="PF('DialogoEditar').show()" disabled="#{empty gestionCitasControlador.citaActual}"/>
+                                <p:commandButton id="botonBorrar" icon="ui-icon-trash"  value="Borrar" actionListener="#{gestionCitasControlador.doEliminar()}" update=":mensajes,tablaListado" disabled="#{empty gestionCitasControlador.citaActual}"/>
+                            </f:facet>
+
+                        </p:dataTable>
+                </h:form>         
+
+                <ui:include src="fragmentoDialogoNuevo.xhtml"/>
+                <ui:include src="fragmentoDialogoEditar.xhtml"/>
+                <ui:include src="fragmentoDialogoVer.xhtml"/>
+
+            </ui:define>
+
+        </ui:composition>
+
+</html>
+

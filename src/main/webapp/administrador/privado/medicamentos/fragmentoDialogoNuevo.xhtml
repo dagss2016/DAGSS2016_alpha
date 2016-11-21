@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+        <ui:composition>
+        <p:dialog id="dialogoNuevo" widgetVar="DialogoNuevo" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Medicamento">
+            <h:form id="formularioNuevo">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestionMedicamentosControlador.medicamentoActual != null}">
+                        <p:outputLabel value="Nombre:" for="nombre"/>
+                        <p:inputText id="nombre" value="#{gestionMedicamentosControlador.medicamentoActual.nombre}"/>
+
+                        <p:outputLabel value="Familia:" for="familia"/>
+                        <p:inputText id="familia" value="#{gestionMedicamentosControlador.medicamentoActual.familia}"/>
+
+                        <p:outputLabel value="Fabricante:" for="fabricante"/>
+                        <p:inputText id="fabricante" value="#{gestionMedicamentosControlador.medicamentoActual.fabricante}"/>
+
+                        <p:outputLabel value="Principio Activo:" for="principioactivo"/>
+                        <p:inputText id="principioactivo" value="#{gestionMedicamentosControlador.medicamentoActual.principioActivo}"/>
+
+                        <p:outputLabel value="Num. Dosis:" for="numdosis"/>
+                        <p:inputText id="numdosis" value="#{gestionMedicamentosControlador.medicamentoActual.numeroDosis}"/>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Guardar" actionListener="#{gestionMedicamentosControlador.doGuardarNuevo()}"  
+                                     update="display,:formularioListado:tablaListado,:mensajes" 
+                                     oncomplete="PF('DialogoNuevo').hide()"/>
+                    <p:commandButton value="Cancelar" onclick="PF('DialogoNuevo').hide()"/>
+                </h:panelGroup> 
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>                    
+</html>
+

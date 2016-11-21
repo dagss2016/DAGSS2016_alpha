@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="dialogoNuevo" widgetVar="DialogoNuevo" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Médico">
+            <h:form id="formularioNuevo">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestionMedicosControlador.medicoActual != null}">
+                        <p:outputLabel value="Nombre:" for="nombre"/>
+                        <p:inputText id="nombre" value="#{gestionMedicosControlador.medicoActual.nombre}" required="true"/>
+
+                        <p:outputLabel value="Apellidos:" for="apellidos"/>
+                        <p:inputText id="apellidos" value="#{gestionMedicosControlador.medicoActual.apellidos}" required="true"/>
+
+                        <p:outputLabel value="DNI:" for="dni"/>
+                        <p:inputText id="dni" value="#{gestionMedicosControlador.medicoActual.dni}" required="true"/>
+
+                        <p:outputLabel value="Num. colegiado:" for="numcolegiado"/>
+                        <p:inputText id="numcolegiado" value="#{gestionMedicosControlador.medicoActual.numeroColegiado}" required="true"/>
+
+                        <p:outputLabel value="Telefono:" for="telefono"/>
+                        <p:inputText id="telefono" value="#{gestionMedicosControlador.medicoActual.telefono}" required="true"/>
+
+                        <p:outputLabel value="e-mail:" for="email"/>
+                        <p:inputText id="email" value="#{gestionMedicosControlador.medicoActual.email}" required="true"/>
+
+                        <p:outputLabel value="Centro salud:" for="centrosalud"/>
+                        <p:selectOneMenu id="centrosalud" value="#{gestionMedicosControlador.medicoActual.centroSalud}"
+                                         converter="omnifaces.SelectItemsConverter">                
+                            <f:selectItems var="itemCentroSalud" value="#{gestionMedicosControlador.centrosSalud}"                                           
+                                           itemValue="#{itemCentroSalud}" 
+                                           itemLabel="#{itemCentroSalud.nombre} (#{itemCentroSalud.direccion.localidad})" />
+                        </p:selectOneMenu>                        
+
+                        <p:outputLabel value="Password:" for="password1"/>
+                        <h:inputSecret id="password1" value="#{gestionMedicosControlador.password1}" required="true"/>
+
+                        <p:outputLabel value="Repetir password:" for="password2"/>
+                        <h:inputSecret id="password2" value="#{gestionMedicosControlador.password2}" required="true"/>
+
+                    </p:panelGrid>
+
+                    <p:commandButton value="Guardar" actionListener="#{gestionMedicosControlador.doGuardarNuevo()}"  
+                                     update="display,:formularioListado:tablaListado,:mensajes" 
+                                     oncomplete="PF('DialogoNuevo').hide()"/>
+                    <p:commandButton value="Cancelar" onclick="PF('DialogoNuevo').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>                    
+</html>
+

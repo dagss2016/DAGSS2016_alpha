@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+            <ui:define name="tituloPagina">
+                Editar/crear administrador
+            </ui:define>
+
+            <ui:define name="izquierda">
+                <ui:include src="/administrador/plantillas/menuAdministrador.xhtml"/>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="Nombre (*):" for="nombre" />
+                        <h:inputText id="nombre" value="#{gestionAdministradoresControlador.administradorEnEdicion.nombre}" title="Nombre" required="true" requiredMessage="Debe introducirse un nombre de administrador"/>
+                        <h:message for="nombre"/>
+
+                        <h:outputLabel value="Login (*):" for="login" />
+                        <h:inputText id="login" value="#{gestionAdministradoresControlador.administradorEnEdicion.login}" title="Login" required="true" requiredMessage="Debe introducirse un login"/>
+                        <h:message for="login"/>
+
+                        <h:outputLabel value="Password (*):" for="password" />
+                        <h:inputSecret id="password" value="#{gestionAdministradoresControlador.password1}" title="Password" required="true" requiredMessage="Debe introducirse un password"/>
+                        <h:message for="password"/>
+
+                        <h:outputLabel value="Repetir password (*):" for="password2" />
+                        <h:inputSecret id="password2" value="#{gestionAdministradoresControlador.password2}" title="Password2" required="true" requiredMessage="Debe repetir su password"/>
+                        <h:message for="password2"/>
+
+
+                        <h:outputLabel value="Fecha alta:" for="fechaAlta" />
+                        <h:outputText id="fechaAlta" value="#{gestionAdministradoresControlador.administradorEnEdicion.fechaAlta}" title="FechaAlta" >
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputLabel/>
+
+                        <h:outputLabel value="Ultimo acceso:" for="ultimoAcceso" />
+                        <h:outputText id="ultimoAcceso" value="#{gestionAdministradoresControlador.administradorEnEdicion.ultimoAcceso}" title="UltimoAcceso" >
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputLabel/>
+
+                    </h:panelGrid>
+                    <h:commandButton value="Guardar" action="#{gestionAdministradoresControlador.doGuardar()}"/>
+                    <h:commandButton value="Cancelar" immediate="true" action="#{gestionAdministradoresControlador.doCancelar()}"/>
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

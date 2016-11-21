@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <p:dialog id="dialogoNuevo" widgetVar="DialogoNuevo" modal="true" resizable="false" appendTo="@(body)" header="Nuevo Centro de Salud">
+            <h:form id="formularioNuevo">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestionCentrosSaludControlador.centroSaludActual != null}">
+                        <p:outputLabel value="Nombre:" for="nombre"/>
+                        <p:inputText id="nombre" value="#{gestionCentrosSaludControlador.centroSaludActual.nombre}" required="true"/>
+
+                        <p:outputLabel value="Domicilio:" for="domicilio"/>
+                        <p:inputText id="domicilio" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.domicilio}" required="true"/>
+
+                        <p:outputLabel value="Localidad:" for="localidad"/>
+                        <p:inputText id="localidad" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.localidad}" required="true"/>
+
+                        <p:outputLabel value="Cod. Postal:" for="codpostal"/>
+                        <p:inputText id="codpostal" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.codigoPostal}" required="true"/>
+
+                        <p:outputLabel value="Provincia:" for="provincia"/>
+                        <p:inputText id="provincia" value="#{gestionCentrosSaludControlador.centroSaludActual.direccion.provincia}" required="true"/>
+
+                        <p:outputLabel value="Teléfono:" for="telefono"/>
+                        <p:inputText id="telefono" value="#{gestionCentrosSaludControlador.centroSaludActual.telefono}" required="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Guardar" actionListener="#{gestionCentrosSaludControlador.doGuardarNuevo()}"  
+                                     update="display,:formularioListado:tablaListado,:mensajes" 
+                                     oncomplete="PF('DialogoNuevo').hide()"/>
+                    <p:commandButton value="Cancelar" onclick="PF('DialogoNuevo').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

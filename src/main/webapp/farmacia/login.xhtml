@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+            <ui:define name="tituloPagina">
+                Acceso Farmacias
+            </ui:define>
+
+            <ui:define name="contenido">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="nif" value="NIF:" />
+                        <h:inputText id="nif" value="#{farmaciaControlador.nif}"/>
+                        <h:outputLabel for="password" value="Contraseña:" />
+                        <h:inputSecret id="password" value="#{farmaciaControlador.password}"/>
+                    </h:panelGrid>                    
+
+                    <h:commandButton value="Login" action="#{farmaciaControlador.doLogin()}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

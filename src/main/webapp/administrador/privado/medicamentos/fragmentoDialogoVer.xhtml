@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="dialogoVer" widgetVar="DialogoVer" modal="true" resizable="false" appendTo="@(body)" header="Datos Medicamento">
+            <h:form id="formularioVer">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestionMedicamentosControlador.medicamentoActual != null}">
+                        <p:outputLabel value="ID:" for="id"/>
+                        <h:outputText id="id" value="#{gestionMedicamentosControlador.medicamentoActual.id}"/>
+
+                        <p:outputLabel value="Nombre:" for="nombre"/>
+                        <h:outputText id="nombre" value="#{gestionMedicamentosControlador.medicamentoActual.nombre}"/>
+
+                        <p:outputLabel value="Familia:" for="familia"/>
+                        <h:outputText id="familia" value="#{gestionMedicamentosControlador.medicamentoActual.familia}"/>
+
+                        <p:outputLabel value="Fabricante:" for="fabricante"/>
+                        <h:outputText id="fabricante" value="#{gestionMedicamentosControlador.medicamentoActual.fabricante}"/>
+
+                        <p:outputLabel value="Principio Activo:" for="principioactivo"/>
+                        <h:outputText id="principioactivo" value="#{gestionMedicamentosControlador.medicamentoActual.principioActivo}"/>
+
+                        <p:outputLabel value="Num. Dosis:" for="numdosis"/>
+                        <h:outputText id="numdosis" value="#{gestionMedicamentosControlador.medicamentoActual.numeroDosis}"/>
+                    </p:panelGrid>
+                    
+                    <p:commandButton value="Cerrar" onclick="PF('DialogoVer').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>    
+</html>
+

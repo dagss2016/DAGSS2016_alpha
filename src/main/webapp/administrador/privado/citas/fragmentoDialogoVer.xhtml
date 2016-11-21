@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition>
+
+        <p:dialog id="dialogoVer" widgetVar="DialogoVer" modal="true" resizable="false" appendTo="@(body)" header="Datos Cita 'manual'">
+            <h:form id="formularioVer">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestionCitasControlador.citaActual != null}">
+                        <p:outputLabel value="ID:" for="id"/>
+                        <h:outputText id="id" value="#{gestionCitasControlador.citaActual.id}"/>
+
+                        <p:outputLabel value="Paciente:" for="paciente"/>
+                        <h:outputText id="paceinte" value="#{gestionCitasControlador.citaActual.paciente.apellidos}, #{gestionCitasControlador.citaActual.paciente.nombre}"/>
+
+                        <p:outputLabel value="Médico:" for="medico"/>
+                        <h:outputText id="medico" value="#{gestionCitasControlador.citaActual.medico.apellidos}, #{gestionCitasControlador.citaActual.medico.nombre}"/>
+
+                        <p:outputLabel value="Centro Salud:" for="centrosalud"/>
+                        <h:outputText id="centrosalud" value="#{gestionCitasControlador.citaActual.medico.centroSalud.nombre}, #{gestionCitasControlador.citaActual.medico.centroSalud.direccion.localidad} (#{gestionCitasControlador.citaActual.medico.centroSalud.direccion.provincia})"/>
+
+                        <p:outputLabel value="Fecha:" for="fecha"/>
+                        <h:outputText id="fecha" value="#{gestionCitasControlador.citaActual.fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        
+                        <p:outputLabel value="Hora:" for="hora"/>
+                        <h:outputText id="hora" value="#{gestionCitasControlador.citaActual.hora}">
+                            <f:convertDateTime pattern="hh:mm"/>
+                        </h:outputText>
+
+                        <p:outputLabel value="Duración:" for="duracion"/>
+                        <h:outputText id="duracion" value="#{gestionCitasControlador.citaActual.duracion}"/>
+
+                        <p:outputLabel value="Estado:" for="estado"/>
+                        <h:outputText id="estado" value="#{gestionCitasControlador.citaActual.estado}"/>
+                    </p:panelGrid>
+                    
+                    <p:commandButton value="Cerrar" onclick="PF('DialogoVer').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>
+

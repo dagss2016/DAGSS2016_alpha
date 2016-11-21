@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <p:dialog id="dialogoNuevo" widgetVar="DialogoNuevo" modal="true" resizable="false" appendTo="@(body)" header="Nueva Cita 'manual'">
+            <h:form id="formularioNuevo">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestionCitasControlador.citaActual != null}">
+
+                        <p:outputLabel value="Paciente:" for="paciente"/>
+                        <p:selectOneMenu id="paciente" value="#{gestionCitasControlador.citaActual.paciente}"
+                                         converter="omnifaces.SelectItemsConverter">                
+                            <f:selectItems var="itemPaciente" value="#{gestionCitasControlador.listadoPacientes}"                                           
+                                           itemValue="#{itemPaciente}" 
+                                           itemLabel="#{itemPaciente.apellidos}, #{itemPaciente.nombre} (#{itemPaciente.direccion.localidad}) DNI: #{itemPaciente.dni}" />
+                        </p:selectOneMenu>  
+
+                        <p:outputLabel value="Medico:" for="medico"/>
+                        <p:selectOneMenu id="medico" value="#{gestionCitasControlador.citaActual.medico}"
+                                         converter="omnifaces.SelectItemsConverter">                
+                            <f:selectItems var="itemMedico" value="#{gestionCitasControlador.listadoMedicos}"                                           
+                                           itemValue="#{itemMedico}" 
+                                           itemLabel="#{itemMedico.apellidos}, #{itemMedico.nombre} (#{itemMedico.centroSalud.nombre}, #{itemMedico.centroSalud.direccion.localidad}) DNI: #{itemMedico.dni}" />
+                        </p:selectOneMenu>  
+
+
+                        <p:outputLabel value="Fecha:" for="fecha"/>
+                        <p:calendar id="fecha" value="#{gestionCitasControlador.citaActual.fecha}"/>
+
+                        <p:outputLabel value="Hora (hh:mm):" for="hora"/>
+                        <p:inputText id="hora" value="#{gestionCitasControlador.citaActual.hora}">
+                            <f:convertDateTime pattern="hh:mm"/>
+                        </p:inputText>
+
+                        <p:outputLabel value="Duración:" for="duracion"/>
+                        <h:outputText id="duracion" value="#{gestionCitasControlador.citaActual.duracion}"/>
+
+                        <p:outputLabel value="Estado:" for="estado"/>
+                        <h:outputText id="estado" value="#{gestionCitasControlador.citaActual.estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Guardar" actionListener="#{gestionCitasControlador.doGuardarNuevo()}"  
+                                     update="display,:formularioListado:tablaListado,:mensajes" 
+                                     oncomplete="PF('DialogoNuevo').hide()"/>
+                    <p:commandButton value="Cancelar" onclick="PF('DialogoNuevo').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
+

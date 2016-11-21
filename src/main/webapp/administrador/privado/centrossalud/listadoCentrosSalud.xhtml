@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+            <ui:define name="tituloPagina">
+                Gestión de Centros de Salud
+            </ui:define>
+
+            <ui:define name="izquierda">
+                <ui:include src="/administrador/plantillas/menuAdministrador.xhtml"/>                
+            </ui:define>
+
+            <ui:define name="contenido">
+
+                <p:growl id="mensajes" life="3000" />
+
+                <h:form id="formularioListado">     
+                        <p:dataTable id="tablaListado"
+                                     value="#{gestionCentrosSaludControlador.centrosSalud}"
+                                     var="centroSalud" 
+                                     selection="#{gestionCentrosSaludControlador.centroSaludActual}"
+                                     selectionMode="single"
+                                     paginator="true" paginatorPosition="bottom" rows="10" rowKey="#{centroSalud.id}">
+
+                            <p:ajax event="rowSelect"   update="botonNuevo botonVer botonEditar botonBorrar"/>
+
+                            <f:facet name="header">
+                                <h:outputText value="Listado de Centros de Salud"/>
+                            </f:facet>                        
+
+                            <p:column headerText="Id">
+                                <p:outputLabel value="#{centroSalud.id}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <p:outputLabel value="#{centroSalud.nombre}" />
+                            </p:column>                    
+
+                            <p:column headerText="Domicilio">
+                                <p:outputLabel value="#{centroSalud.direccion.domicilio}" />
+                            </p:column>
+
+                            <p:column headerText="Localidad">
+                                <p:outputLabel value="#{centroSalud.direccion.localidad}" />
+                            </p:column>
+
+                            <p:column headerText="Cod. Postal">
+                                <p:outputLabel value="#{centroSalud.direccion.codigoPostal}" />
+                            </p:column>
+
+                            <p:column headerText="Provincia">
+                                <p:outputLabel value="#{centroSalud.direccion.provincia}" />
+                            </p:column>
+
+                            <p:column headerText="Teléfono">
+                                <p:outputLabel value="#{centroSalud.telefono}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="botonNuevo"  icon="ui-icon-plus"   value="Nuevo"  actionListener="#{gestionCentrosSaludControlador.doNuevo()}" update=":formularioNuevo" oncomplete="PF('DialogoNuevo').show()"/>
+                                <p:commandButton id="botonVer"    icon="ui-icon-search" value="Ver"    update=":formularioVer" oncomplete="PF('DialogoVer').show()" disabled="#{empty gestionCentrosSaludControlador.centroSaludActual}"/>
+                                <p:commandButton id="botonEditar" icon="ui-icon-pencil" value="Editar" update=":formularioEditar" oncomplete="PF('DialogoEditar').show()" disabled="#{empty gestionCentrosSaludControlador.centroSaludActual}"/>
+                                <p:commandButton id="botonBorrar" icon="ui-icon-trash"  value="Borrar" actionListener="#{gestionCentrosSaludControlador.doEliminar()}" update=":mensajes,tablaListado" disabled="#{empty gestionCentrosSaludControlador.centroSaludActual}"/>
+                            </f:facet>
+
+                        </p:dataTable>
+                </h:form>         
+
+                <ui:include src="fragmentoDialogoNuevo.xhtml"/>
+                <ui:include src="fragmentoDialogoEditar.xhtml"/>
+                <ui:include src="fragmentoDialogoVer.xhtml"/>
+
+            </ui:define>
+
+        </ui:composition>
+
+</html>
+

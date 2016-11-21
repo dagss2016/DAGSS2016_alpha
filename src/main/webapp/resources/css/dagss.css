@@ -1,0 +1,106 @@
+/* Fuentes y colores globales */
+body {
+    background-color: #ffffff;
+    font-size: 13px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+  color: #045491;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+
+/* Margenes y Colores de plantilla global */
+#pagina{
+    width: 100%;
+    margin: 5px auto;
+}
+
+#encabezado{
+    background-color: #036fab;
+    color: white;
+    padding: 2px;
+    margin: 0px 0px 5px 0px;
+    text-align: center;
+
+    float: left;
+    width: 100%;
+}
+
+#cuerpo{
+    float: left;
+    width: 100%;
+    background-color: #cfcfcf;
+}
+
+#contenido{
+    /* margin-left: 180px; */
+    background-color: #cfcfcf;
+    /* height: 200px; */
+    padding: 5px 0px 5px 0px;
+}
+
+#izquierda{
+    float: left;
+    /* width: 170px; */
+    margin-left: 0%;
+    /* height: 200px; */
+    padding: 5px 0px 5px 5px;
+}
+
+#pie{
+    float: left;
+    width: 100%;
+
+    background-color: #c2dfef;
+    text-align: center;
+    
+    padding: 2px;
+    margin: 5px 0px 0px 0px;    
+}
+
+.errores {
+    color: red;
+    font-weight: bold;
+}
+
+
+.tablaBase {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+}
+.tablaBase th {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: black;
+}
+.tablaBase td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: black;
+}

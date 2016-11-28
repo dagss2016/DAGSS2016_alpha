@@ -6,11 +6,15 @@ package es.uvigo.esei.dagss.controladores.medico;
 import es.uvigo.esei.dagss.controladores.autenticacion.AutenticacionControlador;
 import es.uvigo.esei.dagss.dominio.daos.CitaDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicoDAO;
+import es.uvigo.esei.dagss.dominio.entidades.Cita;
 import es.uvigo.esei.dagss.dominio.entidades.Medico;
 import es.uvigo.esei.dagss.dominio.entidades.TipoUsuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -29,6 +33,7 @@ public class MedicoControlador implements Serializable {
     private String dni;
     private String numeroColegiado;
     private String password;
+    private List<Cita> listaDeCitas;
 
     @Inject
     private AutenticacionControlador autenticacionControlador;
@@ -37,12 +42,29 @@ public class MedicoControlador implements Serializable {
     @EJB
     private MedicoDAO medicoDAO;
 
+    @EJB
+    private CitaDAO citaDAO;
+    
+    
+    public List<Cita> cargarCitasHoy(){
+        return citaDAO.getCitasDeHoy(medicoActual);
+    }
+    
     /**
      * Creates a new instance of AdministradorControlador
      */
     public MedicoControlador() {
     }
 
+    public List<Cita> getListaDeCitas() {
+        return listaDeCitas;
+    }
+
+    public void setListaDeCitas(List<Cita> listaDeCitas) {
+        this.listaDeCitas = listaDeCitas;
+    }
+
+    
     public String getDni() {
         return dni;
     }
@@ -110,7 +132,8 @@ public class MedicoControlador implements Serializable {
         }
         return destino;
     }
-
+    
+    
     //Acciones
     public String doShowCita() {
         return "detallesCita";

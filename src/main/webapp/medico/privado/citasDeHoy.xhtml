@@ -11,7 +11,7 @@
         <ui:composition template="/plantillas/plantillaComun.xhtml">
 
             <ui:define name="tituloPagina">
-                Pagina principal de Médicos
+                Citas de Hoy
             </ui:define>            
 
             <ui:define name="izquierda">
@@ -19,6 +19,14 @@
             </ui:define>
 
             <ui:define name="contenido">
+                <h4>Citas de Hoy</h4>
+                <h:dataTable value="#{medicoControlador.cargarCitasHoy()}" var="cita">
+                    <h:column>
+                        <f:facet name="header">#</f:facet>
+                        <h:outputLabel value="#{cita.id}"/>
+                    </h:column>
+                </h:dataTable>
+                
             </ui:define>
         </ui:composition>
 

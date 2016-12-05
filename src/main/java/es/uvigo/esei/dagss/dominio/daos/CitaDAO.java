@@ -27,6 +27,5 @@ public class CitaDAO  extends GenericoDAO<Cita>{
         tq.setParameter("f", fecha);
         return tq.getResultList();
     }
-    // Completar aqui
      
 }

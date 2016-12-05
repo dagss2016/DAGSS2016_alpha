@@ -9,7 +9,7 @@
     <body>
 
         <ui:composition template="/plantillas/plantillaComun.xhtml">
-
+            
             <ui:define name="tituloPagina">
                 Citas de Hoy
             </ui:define>            
@@ -20,14 +20,29 @@
 
             <ui:define name="contenido">
                 <h4>Citas de Hoy</h4>
-                <h:dataTable value="#{medicoControlador.cargarCitasHoy()}" var="cita">
-                    <h:column>
-                        <f:facet name="header">#</f:facet>
-                        <h:outputLabel value="#{cita.id}"/>
-                    </h:column>
-                </h:dataTable>
+                <p:dataTable value="#{medicoControlador.cargarCitasHoy()}" id="tablaListado" var="cita">
+                    <p:column headerText="#">
+                        <p:outputLabel value="#{cita.id}"/>
+                    </p:column>
+                    <p:column headerText="Hora">
+                        <p:outputLabel value="#{cita.horaFormateada}"/>
+                    </p:column>
+                    <p:column headerText="Paciente">
+                        <p:outputLabel value="#{cita.paciente.apellidos}, #{cita.paciente.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <p:outputLabel value="#{cita.estado}"/>
+                    </p:column>
+                    <p:column headerText="Opciones">
+                        <h:form>
+                            <p:commandButton id="botonBorrar" icon="ui-icon-trash"  value="Cancelar" rendered="#{cita.citaPendiente}" actionListener="#{medicoControlador.deleteCita(cita)}" process="@this" update="tablaListado"/>
+                            <p:commandButton id="botonAtender" icon="ui-icon-pencil"  value="Atender" rendered="#{cita.citaPendiente}" action="#{medicoControlador.atenderCita(cita)}"/>
+                       </h:form>
+                    </p:column>
+                </p:dataTable>
                 
             </ui:define>
+            
         </ui:composition>
 
     </body>

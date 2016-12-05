@@ -4,6 +4,7 @@
 package es.uvigo.esei.dagss.dominio.entidades;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -54,7 +55,10 @@ public class Cita implements Serializable {
         this.estado = estado;
         
     }
-
+    public boolean isCitaPendiente(){
+        return this.estado == EstadoCita.PLANIFICADA;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -110,6 +114,10 @@ public class Cita implements Serializable {
 
     public void setEstado(EstadoCita estado) {
         this.estado = estado;
+    }
+    public String getHoraFormateada(){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(this.hora);
     }
 
     @Override

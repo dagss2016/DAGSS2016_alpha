@@ -7,6 +7,7 @@ import es.uvigo.esei.dagss.controladores.autenticacion.AutenticacionControlador;
 import es.uvigo.esei.dagss.dominio.daos.CitaDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicoDAO;
 import es.uvigo.esei.dagss.dominio.entidades.Cita;
+import es.uvigo.esei.dagss.dominio.entidades.EstadoCita;
 import es.uvigo.esei.dagss.dominio.entidades.Medico;
 import es.uvigo.esei.dagss.dominio.entidades.TipoUsuario;
 import javax.inject.Named;
@@ -30,6 +31,7 @@ import javax.inject.Inject;
 public class MedicoControlador implements Serializable {
 
     private Medico medicoActual;
+    private Cita citaActual;
     private String dni;
     private String numeroColegiado;
     private String password;
@@ -59,7 +61,12 @@ public class MedicoControlador implements Serializable {
     public List<Cita> getListaDeCitas() {
         return listaDeCitas;
     }
-
+    
+    public String atenderCita(Cita c){
+        citaActual = c;
+        return "atenderCita";
+    }
+    
     public void setListaDeCitas(List<Cita> listaDeCitas) {
         this.listaDeCitas = listaDeCitas;
     }
@@ -99,6 +106,11 @@ public class MedicoControlador implements Serializable {
 
     private boolean parametrosAccesoInvalidos() {
         return (((dni == null) && (numeroColegiado == null)) || (password == null));
+    }
+    
+    public void deleteCita(Cita c){
+        c.setEstado(EstadoCita.ANULADA);
+        citaDAO.actualizar(c);
     }
 
     private Medico recuperarDatosMedico() {

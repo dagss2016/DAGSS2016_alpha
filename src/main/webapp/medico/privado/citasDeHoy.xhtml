@@ -19,7 +19,7 @@
             </ui:define>
 
             <ui:define name="contenido">
-                <h4>Citas de Hoy</h4>
+                <h3>Citas de Hoy</h3>
                 <p:dataTable value="#{medicoControlador.cargarCitasHoy()}" id="tablaListado" var="cita">
                     <p:column headerText="#">
                         <p:outputLabel value="#{cita.id}"/>

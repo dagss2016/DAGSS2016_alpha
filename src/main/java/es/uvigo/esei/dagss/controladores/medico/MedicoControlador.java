@@ -5,9 +5,11 @@ package es.uvigo.esei.dagss.controladores.medico;
 
 import es.uvigo.esei.dagss.controladores.autenticacion.AutenticacionControlador;
 import es.uvigo.esei.dagss.dominio.daos.CitaDAO;
+import es.uvigo.esei.dagss.dominio.daos.MedicamentoDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicoDAO;
 import es.uvigo.esei.dagss.dominio.entidades.Cita;
 import es.uvigo.esei.dagss.dominio.entidades.EstadoCita;
+import es.uvigo.esei.dagss.dominio.entidades.Medicamento;
 import es.uvigo.esei.dagss.dominio.entidades.Medico;
 import es.uvigo.esei.dagss.dominio.entidades.TipoUsuario;
 import javax.inject.Named;
@@ -29,7 +31,8 @@ import javax.inject.Inject;
 @Named(value = "medicoControlador")
 @SessionScoped
 public class MedicoControlador implements Serializable {
-
+    
+    
     private Medico medicoActual;
     private Cita citaActual;
     private String dni;
@@ -39,10 +42,10 @@ public class MedicoControlador implements Serializable {
 
     @Inject
     private AutenticacionControlador autenticacionControlador;
-    
 
     @EJB
     private MedicoDAO medicoDAO;
+    
 
     @EJB
     private CitaDAO citaDAO;
@@ -60,6 +63,10 @@ public class MedicoControlador implements Serializable {
 
     public List<Cita> getListaDeCitas() {
         return listaDeCitas;
+    }
+
+    public Cita getCitaActual() {
+        return citaActual;
     }
     
     public String atenderCita(Cita c){
@@ -123,6 +130,7 @@ public class MedicoControlador implements Serializable {
         }
         return medico;
     }
+    
 
     public String doLogin() {
         String destino = null;

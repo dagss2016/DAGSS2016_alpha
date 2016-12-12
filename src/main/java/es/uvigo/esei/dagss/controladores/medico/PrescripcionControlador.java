@@ -7,11 +7,11 @@ package es.uvigo.esei.dagss.controladores.medico;
 
 import es.uvigo.esei.dagss.dominio.daos.CitaDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicamentoDAO;
-import es.uvigo.esei.dagss.dominio.daos.PrescripcionDAO;
 import es.uvigo.esei.dagss.dominio.entidades.Cita;
 import es.uvigo.esei.dagss.dominio.entidades.EstadoCita;
 import es.uvigo.esei.dagss.dominio.entidades.Medicamento;
 import es.uvigo.esei.dagss.dominio.entidades.Prescripcion;
+import es.uvigo.esei.dagss.servicios.ServicioPrescripcion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,7 +42,7 @@ public class PrescripcionControlador implements Serializable {
     private CitaDAO citaDAO;
     
     @EJB
-    private PrescripcionDAO prescripcionDAO;
+    private ServicioPrescripcion servicioPrescripcion;
     
     @EJB
     private MedicamentoDAO medicamentoDAO;
@@ -106,13 +106,10 @@ public class PrescripcionControlador implements Serializable {
     public String crear(){
         Cita citaActual = medicoControlador.getCitaActual();
         Prescripcion p = new Prescripcion(citaActual.getPaciente(), medicamento,medicoControlador.getMedicoActual(),dosisDiaria,indicaciones,fechaInicio,fechaFin);
-        //prescripcionDAO.crear(indicaciones,medicamento.getId(),dosisDiaria,fechaInicio,fechaFin);
-        prescripcionDAO.crear(p);
+        servicioPrescripcion.crearPrescripción(p);
+        //Me cuestiono el orden en el que esto debería escribirse
         citaActual.setEstado(EstadoCita.COMPLETADA);
         citaDAO.actualizar(citaActual);
-        //
-        //TODO AQUI LA CREACIÓN DE RECETAS
-        //
         return "citasDeHoy";
     }
 

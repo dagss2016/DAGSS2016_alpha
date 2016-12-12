@@ -1,0 +1,79 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package es.uvigo.esei.dagss.servicios;
+
+import es.uvigo.esei.dagss.dominio.daos.PrescripcionDAO;
+import es.uvigo.esei.dagss.dominio.daos.RecetaDAO;
+import es.uvigo.esei.dagss.dominio.entidades.EstadoReceta;
+import es.uvigo.esei.dagss.dominio.entidades.Prescripcion;
+import es.uvigo.esei.dagss.dominio.entidades.Receta;
+import java.util.Calendar;
+import java.util.Date;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+
+/**
+ *
+ * @author root
+ */
+@Stateless
+public class ServicioPrescripcion {
+    
+    @EJB
+    private PrescripcionDAO prescripcionDAO;
+    
+    @EJB
+    private RecetaDAO recetaDAO;
+    
+    
+    public void crearPrescripción(Prescripcion p){
+        prescripcionDAO.crear(p);
+        crearPlanDeRecetas(p);
+    }
+    
+    //
+    //TODO ESTO QUE FALLA PERO NO SABEMOS POR QUÉ
+    //
+    private void crearPlanDeRecetas(Prescripcion p){
+        int nDias = getDiferenciaDeDias(p.getFechaInicio(), p.getFechaFin());
+        int dosisDiaria = p.getDosis();
+        int dosisCaja = p.getMedicamento().getNumeroDosis();
+        
+        int dosisTotal = nDias * dosisDiaria;
+        int nRecetas = dosisTotal/dosisCaja;
+        int duracionCaja = dosisCaja / dosisDiaria;
+        if(dosisTotal%dosisCaja != 0){
+            nRecetas++;
+        }
+        Date start = p.getFechaInicio();
+        for(int i = 0; i< nRecetas; i++){
+            Date inicio = operarDiasFecha(start, -7);
+            Date fin = operarDiasFecha(start, 14);
+          
+            Receta r = new Receta(p,1,inicio,fin,EstadoReceta.GENERADA);
+            recetaDAO.crear(r);
+            //esto igual no hace falta
+            recetaDAO.actualizar(r);
+            start = operarDiasFecha(start, duracionCaja);
+        }
+    }
+    
+    private int getDiferenciaDeDias(Date inicio, Date fin){
+        return Math.toIntExact(( inicio.getTime() - fin.getTime() )/ (24 * 60 * 60 * 1000));
+    }
+    
+    //Se resta con dias<0
+    private Date operarDiasFecha(Date fecha, int dias){
+ 
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(fecha); // Configuramos la fecha que se recibe
+      calendar.add(Calendar.DAY_OF_YEAR, dias);  
+      return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+ 
+ }
+
+    
+}

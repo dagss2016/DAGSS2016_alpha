@@ -23,18 +23,21 @@
                 <h:form>
                     <h:panelGrid columns="2">
                         <p:outputLabel>Indicaciones: </p:outputLabel>
-                        <p:inputTextarea value="#{prescripcionControlador.indicaciones}"/>
+                        <p:inputTextarea required="false" value="#{prescripcionControlador.indicaciones}"/>
                         <p:outputLabel>Medicamento: </p:outputLabel>
-                        <p:autoComplete id="acSimple" value="#{prescripcionControlador.nombreMedicamentoActual}" completeMethod="#{prescripcionControlador.completarMedicamentos}" />
+                        <p:autoComplete required="false" id="acSimple" value="#{prescripcionControlador.nombreMedicamentoActual}" completeMethod="#{prescripcionControlador.completarMedicamentos}" />
                         <p:outputLabel>Dosis diaria: </p:outputLabel>
-                        <p:inputNumber value="#{prescripcionControlador.dosisDiaria}" decimalPlaces="0"/>
+                        <p:inputNumber required="false" value="#{prescripcionControlador.dosisDiaria}" decimalPlaces="0"/>
                         <p:outputLabel>Fecha de Inicio: </p:outputLabel>
-                        <p:calendar value="#{prescripcionControlador.fechaInicio}"/>
+                        <p:calendar required="false" value="#{prescripcionControlador.fechaInicio}"/>
                         <p:outputLabel>Fecha de Finalización: </p:outputLabel>
-                        <p:calendar value="#{prescripcionControlador.fechaFin}"/>
+                        <p:calendar required="false" value="#{prescripcionControlador.fechaFin}"/>
                     </h:panelGrid>
-                    <p:commandButton value="Crear prescripción" icon="ui-icon-pencil" action="#{prescripcionControlador.crear()}"/>
-                    
+                    <p:commandButton value="Crear prescripción" 
+                                     icon="ui-icon-pencil" 
+                                     action="#{prescripcionControlador.crear()}"/>
+                    <p:commandButton immediate="true" value="Completar" icon="fa fa-check"
+                                     action="#{prescripcionControlador.finalizar()}"/>
                 </h:form>
             </ui:define>
         </ui:composition>

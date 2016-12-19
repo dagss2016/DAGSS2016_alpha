@@ -12,6 +12,7 @@ import es.uvigo.esei.dagss.dominio.entidades.Prescripcion;
 import es.uvigo.esei.dagss.dominio.entidades.Receta;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -43,11 +44,8 @@ public class ServicioPrescripcion {
         int dosisCaja = p.getMedicamento().getNumeroDosis();
         
         int dosisTotal = nDias * dosisDiaria;
-        int nRecetas = dosisTotal/dosisCaja;
+        int nRecetas = (int) Math.ceil(((double) dosisTotal)/dosisCaja);
         int duracionCaja = dosisCaja / dosisDiaria;
-        if(dosisTotal%dosisCaja != 0){
-            nRecetas++;
-        }
         Date start = p.getFechaInicio();
         for(int i = 0; i< nRecetas; i++){
             Date inicio = operarDiasFecha(start, -7);
@@ -56,13 +54,16 @@ public class ServicioPrescripcion {
             Receta r = new Receta(p,1,inicio,fin,EstadoReceta.GENERADA);
             recetaDAO.crear(r);
             //esto igual no hace falta
-            recetaDAO.actualizar(r);
+            //recetaDAO.actualizar(r);
             start = operarDiasFecha(start, duracionCaja);
         }
     }
     
     private int getDiferenciaDeDias(Date inicio, Date fin){
-        return Math.toIntExact(( inicio.getTime() - fin.getTime() )/ (24 * 60 * 60 * 1000));
+        long dif = fin.getTime() - inicio.getTime();
+        return (int) TimeUnit.DAYS.convert(dif, 
+                TimeUnit.MILLISECONDS);
+        
     }
     
     //Se resta con dias<0

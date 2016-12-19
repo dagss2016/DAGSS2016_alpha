@@ -110,6 +110,7 @@ public class PrescripcionControlador implements Serializable {
         //Me cuestiono el orden en el que esto debería escribirse
         citaActual.setEstado(EstadoCita.COMPLETADA);
         citaDAO.actualizar(citaActual);
+        //tenemos que crear las recetas
         return "citasDeHoy";
     }
 

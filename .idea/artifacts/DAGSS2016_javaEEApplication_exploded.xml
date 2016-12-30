@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="DAGSS2016:javaEEApplication exploded">
+    <output-path>$PROJECT_DIR$/classes/artifacts/DAGSS2016_javaEEApplication_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="DAGSS2016/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<body>
+
+<ui:composition template="/plantillas/plantillaComun.xhtml">
+
+    <ui:define name="tituloPagina">
+        Pacientes
+    </ui:define>
+
+    <ui:define name="izquierda">
+        <ui:include src="/medico/plantillas/menuComun.xhtml"/>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <h3>Pacientes</h3>
+        <p:dataTable value="#{medicoControlador.pacientes}" id="tablaListado" var="paciente">
+            <p:column headerText="#">
+                <p:outputLabel value="#{paciente.id}"/>
+            </p:column>
+            <p:column headerText="Nombre">
+                <p:outputLabel value="#{paciente.nombre}"/>
+            </p:column>
+            <p:column headerText="Apellidos">
+                <p:outputLabel value="#{paciente.apellidos}"/>
+            </p:column>
+            <p:column headerText="DNI">
+                <p:outputLabel value="#{paciente.dni}"/>
+            </p:column>
+            <p:column headerText="Opciones">
+                <h:form>
+                    <p:commandButton id="botonVerPreinscripciones" icon="ui-icon-list"  value="Ver preinscripciones"
+                                     action="#{medicoControlador.doVerPreinscripcionesPaciente(paciente)}"/>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+    </ui:define>
+
+</ui:composition>
+
+</body>
+</html>

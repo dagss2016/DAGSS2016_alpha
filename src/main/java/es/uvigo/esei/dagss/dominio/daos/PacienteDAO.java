@@ -3,7 +3,10 @@
  */
 package es.uvigo.esei.dagss.dominio.daos;
 
+import es.uvigo.esei.dagss.dominio.entidades.Medico;
 import es.uvigo.esei.dagss.dominio.entidades.Paciente;
+
+import java.lang.reflect.Type;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -49,6 +52,13 @@ public class PacienteDAO extends GenericoDAO<Paciente> {
         TypedQuery<Paciente> q = em.createQuery("SELECT p FROM Paciente AS p "
                                               + "  WHERE p.direccion.localidad LIKE :patron", Paciente.class);
         q.setParameter("patron","%"+localidad+"%");        
+        return q.getResultList();
+    }
+
+    public List<Paciente> buscarPorMedico(Medico m) {
+        TypedQuery<Paciente> q = em.createQuery("SELECT p FROM Paciente as p WHERE p.medico = :medico",
+                Paciente.class);
+        q.setParameter("medico", m);
         return q.getResultList();
     }
 

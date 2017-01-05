@@ -7,11 +7,9 @@ import es.uvigo.esei.dagss.controladores.autenticacion.AutenticacionControlador;
 import es.uvigo.esei.dagss.dominio.daos.CitaDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicamentoDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicoDAO;
-import es.uvigo.esei.dagss.dominio.entidades.Cita;
-import es.uvigo.esei.dagss.dominio.entidades.EstadoCita;
-import es.uvigo.esei.dagss.dominio.entidades.Medicamento;
-import es.uvigo.esei.dagss.dominio.entidades.Medico;
-import es.uvigo.esei.dagss.dominio.entidades.TipoUsuario;
+import es.uvigo.esei.dagss.dominio.daos.PacienteDAO;
+import es.uvigo.esei.dagss.dominio.entidades.*;
+
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -22,6 +20,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.ws.rs.POST;
 
 /**
  *
@@ -49,8 +48,14 @@ public class MedicoControlador implements Serializable {
 
     @EJB
     private CitaDAO citaDAO;
-    
-    
+
+    @Inject
+    private PacienteDAO pacienteDAO;
+
+    private List<Paciente> pacientes;
+    private Paciente pacienteActual;
+
+
     public List<Cita> cargarCitasHoy(){
         return citaDAO.getCitasDeHoy(medicoActual);
     }
@@ -68,16 +73,27 @@ public class MedicoControlador implements Serializable {
     public Cita getCitaActual() {
         return citaActual;
     }
-    
-    public String atenderCita(Cita c){
-        citaActual = c;
-        return "atenderCita";
-    }
-    
-    public void setListaDeCitas(List<Cita> listaDeCitas) {
-        this.listaDeCitas = listaDeCitas;
+
+
+    @PostConstruct
+    public void inicializar(){
+        this.pacientes = pacienteDAO.buscarTodos();
+        //no deja hacer: pacienteDAO.buscarPorMedico(this.getCitaActual());
     }
 
+    public List<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public String doAtenderCita(Cita c){
+        citaActual = c;
+        return "antenderCita";
+    }
+
+    public String doVerPreinscripcionesPaciente(Paciente p){
+        this.pacienteActual = p;
+        return "preinscripcionesPaciente";
+    }
     
     public String getDni() {
         return dni;
@@ -107,8 +123,8 @@ public class MedicoControlador implements Serializable {
         return medicoActual;
     }
 
-    public void setMedicoActual(Medico medicoActual) {
-        this.medicoActual = medicoActual;
+    public Paciente getPacienteActual() {
+        return pacienteActual;
     }
 
     private boolean parametrosAccesoInvalidos() {

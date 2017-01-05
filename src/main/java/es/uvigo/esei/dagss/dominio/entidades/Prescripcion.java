@@ -30,7 +30,7 @@ public class Prescripcion implements Serializable {
     @ManyToOne
     Paciente paciente;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     Medicamento medicamento;
 
     @ManyToOne

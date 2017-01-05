@@ -7,6 +7,7 @@ package es.uvigo.esei.dagss.controladores.medico;
 
 import es.uvigo.esei.dagss.dominio.daos.CitaDAO;
 import es.uvigo.esei.dagss.dominio.daos.MedicamentoDAO;
+import es.uvigo.esei.dagss.dominio.daos.PrescripcionDAO;
 import es.uvigo.esei.dagss.dominio.entidades.Cita;
 import es.uvigo.esei.dagss.dominio.entidades.EstadoCita;
 import es.uvigo.esei.dagss.dominio.entidades.Medicamento;
@@ -49,7 +50,10 @@ public class PrescripcionControlador implements Serializable {
 
     @Inject
     private MedicoControlador medicoControlador;
-    
+
+    @Inject
+    private PrescripcionDAO prescripcionDAO;
+
     public Date getFechaFin() {
         return fechaFin;
     }
@@ -118,6 +122,14 @@ public class PrescripcionControlador implements Serializable {
         citaActual.setEstado(EstadoCita.COMPLETADA);
         citaDAO.actualizar(citaActual);
         return "citasDeHoy";
+    }
+
+    public List<Prescripcion> getPrescripcionesPaciente(){
+        return this.prescripcionDAO.buscarTodos();
+        //TODO: solucionar error de falta de permisos
+        /*return this.prescripcionDAO.buscarPorPaciente(
+                this.medicoControlador.getPacienteActual()
+        );*/
     }
 
 

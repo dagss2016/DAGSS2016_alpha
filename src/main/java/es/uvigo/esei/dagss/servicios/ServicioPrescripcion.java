@@ -34,10 +34,7 @@ public class ServicioPrescripcion {
         prescripcionDAO.crear(p);
         crearPlanDeRecetas(p);
     }
-    
-    //
-    //TODO ESTO QUE FALLA PERO NO SABEMOS POR QUÉ
-    //
+
     private void crearPlanDeRecetas(Prescripcion p){
         int nDias = getDiferenciaDeDias(p.getFechaInicio(), p.getFechaFin());
         int dosisDiaria = p.getDosis();
@@ -53,8 +50,6 @@ public class ServicioPrescripcion {
           
             Receta r = new Receta(p,1,inicio,fin,EstadoReceta.GENERADA);
             recetaDAO.crear(r);
-            //esto igual no hace falta
-            //recetaDAO.actualizar(r);
             start = operarDiasFecha(start, duracionCaja);
         }
     }

@@ -36,7 +36,7 @@
                     <p:column headerText="Opciones">
                         <h:form>
                             <p:commandButton id="botonBorrar" icon="ui-icon-trash"  value="Cancelar" rendered="#{cita.citaPendiente}" actionListener="#{medicoControlador.deleteCita(cita)}" process="@this" update="tablaListado"/>
-                            <p:commandButton id="botonAtender" icon="ui-icon-pencil"  value="Atender" rendered="#{cita.citaPendiente}" action="#{medicoControlador.atenderCita(cita)}"/>
+                            <p:commandButton id="botonAtender" icon="ui-icon-pencil"  value="Atender" rendered="#{cita.citaPendiente}" action="#{medicoControlador.doAtenderCita(cita)}"/>
                        </h:form>
                     </p:column>
                 </p:dataTable>

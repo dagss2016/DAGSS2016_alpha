@@ -5,11 +5,14 @@ package es.uvigo.esei.dagss.controladores.farmacia;
 
 import es.uvigo.esei.dagss.controladores.autenticacion.AutenticacionControlador;
 import es.uvigo.esei.dagss.dominio.daos.FarmaciaDAO;
+import es.uvigo.esei.dagss.dominio.daos.RecetaDAO;
 import es.uvigo.esei.dagss.dominio.entidades.Farmacia;
+import es.uvigo.esei.dagss.dominio.entidades.Receta;
 import es.uvigo.esei.dagss.dominio.entidades.TipoUsuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,19 +29,49 @@ public class FarmaciaControlador implements Serializable {
     private Farmacia farmaciaActual;
     private String nif;
     private String password;
-
+    private String aBuscar = "";
+    private boolean busquedaPermitida = false;
+    
     @Inject
     private AutenticacionControlador autenticacionControlador;
 
     @EJB
     private FarmaciaDAO farmaciaDAO;
 
+    @EJB
+    private RecetaDAO recetaDAO;
     /**
      * Creates a new instance of AdministradorControlador
      */
     public FarmaciaControlador() {
     }
 
+    public boolean isBusquedaPermitida() {
+        return aBuscar.length() == 10;
+        //TODO : Y si existe en base de datos
+    }
+    
+    public String buscar(){
+        if(isBusquedaPermitida()){
+            return "recetasDisponibles";
+        }else{
+            return null;
+        }
+    }
+    
+    public List<Receta> cargarRecetas(){
+        return recetaDAO.getRecetasActuales(aBuscar);
+    }
+    
+    public String getaBuscar() {
+        return aBuscar;
+    }
+
+    public void setaBuscar(String aBuscar) {
+        this.aBuscar = aBuscar;
+    }
+
+    
     public String getNif() {
         return nif;
     }

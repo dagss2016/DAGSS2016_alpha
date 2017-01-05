@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="/plantillas/plantillaComun.xhtml">
+
+            <ui:define name="tituloPagina">
+                Página principal de Farmacias
+            </ui:define>            
+
+            <ui:define name="izquierda">
+                <ui:include src="/plantillas/menuComun.xhtml"/>
+            </ui:define>
+
+            <ui:define name="contenido">
+                <h3>Recetas asociadas a <p:outputLabel value="#{farmaciaControlador.getaBuscar()}"></p:outputLabel></h3>
+               <p:dataTable value="#{farmaciaControlador.cargarRecetas()}" id="tablaListado" var="receta">
+                    <p:column headerText="#">
+                        <p:outputLabel value="#{receta.id}"/>
+                    </p:column>
+                    <p:column headerText="Medicamento">
+                        <p:outputLabel value="#{receta.prescripcion.medicamento.nombre}"/> 
+                    </p:column>
+                    <p:column headerText="Cantidad">
+                         <p:outputLabel value="#{receta.cantidad}"/>
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <p:outputLabel value="#{receta.estadoReceta}"/>
+                    </p:column>
+                    <p:column headerText="Válida desde">
+                        <p:outputLabel value="#{receta.inicioValidez.toString()}"/>
+                    </p:column>
+                    <p:column headerText="Válida hasta">
+                        <p:outputLabel value="#{receta.finValidez.toString()}"/>
+                    </p:column>
+                    <p:column headerText="Opciones">
+                        <h:form>
+                            <!--AQUI COMMANDBUTTON-->
+                       </h:form>
+                    </p:column>
+                </p:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

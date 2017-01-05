@@ -41,8 +41,8 @@
                     </p:column>
                     <p:column headerText="Opciones">
                         <h:form>
-                            <!--AQUI COMMANDBUTTON-->
-                       </h:form>
+                            <p:commandButton id="botonServir" icon="ui-icon-check" value="Entregar" rendered="#{receta.disponible}" actionListener="#{farmaciaControlador.servirReceta(receta)}" process="@this" update="tablaListado"/>
+                        </h:form>
                     </p:column>
                 </p:dataTable>
             </ui:define>

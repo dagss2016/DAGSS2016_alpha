@@ -6,6 +6,7 @@ package es.uvigo.esei.dagss.controladores.farmacia;
 import es.uvigo.esei.dagss.controladores.autenticacion.AutenticacionControlador;
 import es.uvigo.esei.dagss.dominio.daos.FarmaciaDAO;
 import es.uvigo.esei.dagss.dominio.daos.RecetaDAO;
+import es.uvigo.esei.dagss.dominio.entidades.EstadoReceta;
 import es.uvigo.esei.dagss.dominio.entidades.Farmacia;
 import es.uvigo.esei.dagss.dominio.entidades.Receta;
 import es.uvigo.esei.dagss.dominio.entidades.TipoUsuario;
@@ -31,7 +32,7 @@ public class FarmaciaControlador implements Serializable {
     private String password;
     private String aBuscar = "";
     private boolean busquedaPermitida = false;
-    
+   
     @Inject
     private AutenticacionControlador autenticacionControlador;
 
@@ -46,6 +47,11 @@ public class FarmaciaControlador implements Serializable {
     public FarmaciaControlador() {
     }
 
+    public void servirReceta(Receta r){
+        r.setEstado(EstadoReceta.SERVIDA);
+        recetaDAO.actualizar(r);
+    }
+    
     public boolean isBusquedaPermitida() {
         return aBuscar.length() == 10;
         //TODO : Y si existe en base de datos

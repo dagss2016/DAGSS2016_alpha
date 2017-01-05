@@ -60,6 +60,10 @@ public class Receta implements Serializable {
         this.estadoReceta = estadoReceta;
         this.farmaciaDispensadora = this.farmaciaDispensadora;
     }
+    
+    public boolean isDisponible(){
+        return estadoReceta == EstadoReceta.GENERADA;
+    }
 
     public Long getId() {
         return id;

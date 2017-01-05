@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -18,6 +19,11 @@
             </ui:define>
 
             <ui:define name="contenido">
+                <h:form id="busqueda">
+                    <h3>Introduzca el código de la tarjeta sanitaria:</h3>
+                    <p:inputText id="txt" value="#{farmaciaControlador.aBuscar}" required="true" label="Texto" maxlength="10"></p:inputText>
+                    <p:commandButton id="botonBuscar" value="Buscar" action="#{farmaciaControlador.buscar()}" />
+                </h:form>
             </ui:define>
 
         </ui:composition>

@@ -125,11 +125,9 @@ public class PrescripcionControlador implements Serializable {
     }
 
     public List<Prescripcion> getPrescripcionesPaciente(){
-        return this.prescripcionDAO.buscarTodos();
-        //TODO: solucionar error de falta de permisos
-        /*return this.prescripcionDAO.buscarPorPaciente(
+        return this.prescripcionDAO.buscarPorPaciente(
                 this.medicoControlador.getPacienteActual()
-        );*/
+        );
     }
 
 

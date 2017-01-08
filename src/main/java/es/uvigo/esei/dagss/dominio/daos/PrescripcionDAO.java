@@ -23,9 +23,9 @@ public class PrescripcionDAO extends GenericoDAO<Prescripcion> {
     }
     
     public List<Prescripcion> buscarPorPaciente(Paciente p){
-        TypedQuery<Prescripcion> q = em.createQuery("SELECT p FROM Prescripcion AS p",
+        TypedQuery<Prescripcion> q = em.createQuery("SELECT p FROM Prescripcion AS p WHERE p.paciente = :paciente",
                 Prescripcion.class);
-        //q.setParameter("paciente", p);
+        q.setParameter("paciente", p);
         return q.getResultList();
     }
 }

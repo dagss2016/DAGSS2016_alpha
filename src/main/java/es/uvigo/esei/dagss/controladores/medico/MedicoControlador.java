@@ -75,11 +75,7 @@ public class MedicoControlador implements Serializable {
     }
 
 
-    @PostConstruct
-    public void inicializar(){
-        this.pacientes = pacienteDAO.buscarTodos();
-        //no deja hacer: pacienteDAO.buscarPorMedico(this.getCitaActual());
-    }
+ 
 
     public List<Paciente> getPacientes() {
         return pacientes;
@@ -87,7 +83,7 @@ public class MedicoControlador implements Serializable {
 
     public String doAtenderCita(Cita c){
         citaActual = c;
-        return "antenderCita";
+        return "atenderCita";
     }
 
     public String doVerPreinscripcionesPaciente(Paciente p){
@@ -160,6 +156,7 @@ public class MedicoControlador implements Serializable {
                 if (autenticacionControlador.autenticarUsuario(medico.getId(), password,
                         TipoUsuario.MEDICO.getEtiqueta().toLowerCase())) {
                     medicoActual = medico;
+                    this.pacientes = pacienteDAO.buscarPorMedico(this.medicoActual);
                     destino = "privado/index";
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Credenciales de acceso incorrectas", ""));

@@ -15,7 +15,10 @@ import javax.persistence.TypedQuery;
 public class MedicamentoDAO extends GenericoDAO<Medicamento> {
 
     public List<Medicamento> buscarMedicamento(String busqueda) {
-       TypedQuery tq = (TypedQuery) em.createQuery("SELECT m FROM Medicamento AS m WHERE m.nombre LIKE :busqueda" );
+       TypedQuery tq = (TypedQuery) em.createQuery(""
+               + "SELECT m FROM Medicamento AS m WHERE m.nombre LIKE :busqueda OR "
+               + "m.familia LIKE :busqueda OR m.principioActivo LIKE :busqueda OR "
+               + "m.fabricante LIKE :busqueda " );
        tq.setParameter("busqueda", "%"+busqueda+"%");
        return tq.getResultList();
     }

@@ -35,7 +35,7 @@ public class ServicioPrescripcion {
         crearPlanDeRecetas(p);
     }
 
-    private void crearPlanDeRecetas(Prescripcion p){
+    public void crearPlanDeRecetas(Prescripcion p){
         int nDias = getDiferenciaDeDias(p.getFechaInicio(), p.getFechaFin());
         int dosisDiaria = p.getDosis();
         int dosisCaja = p.getMedicamento().getNumeroDosis();

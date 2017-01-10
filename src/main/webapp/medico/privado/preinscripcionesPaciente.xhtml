@@ -30,6 +30,9 @@
             <p:column headerText="#">
                 <p:outputLabel value="#{prescripcion.id}"/>
             </p:column>
+            <p:column headerText="Medicamento">
+                <p:outputLabel value="#{prescripcion.medicamento.nombre}"/>
+            </p:column>
             <p:column headerText="Dosis">
                 <p:outputLabel value="#{prescripcion.dosis}"/>
             </p:column>
@@ -38,6 +41,12 @@
             </p:column>
             <p:column headerText="Fecha fin">
                 <p:outputLabel value="#{prescripcion.fechaFin}"/>
+            </p:column>
+            <p:column headerText="Opciones">
+                <h:form>
+                    <p:commandButton id="botonBorrar" icon="ui-icon-trash"  value="Borrar" actionListener="#{prescripcionControlador.borrar(prescripcion)}" process="@this" update="tablaListado"/>
+                    <p:commandButton id="botonAtender" icon="ui-icon-list"  value="Modificar" action="#{prescripcionControlador.modificarPrescripcion(prescripcion)}"/>
+                </h:form>
             </p:column>
 
         </p:dataTable>

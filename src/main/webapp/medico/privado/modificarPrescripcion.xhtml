@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Atencer Cita</title>
+        <title>Facelet Title</title>
     </h:head>
     <h:body>
        <ui:composition template="/plantillas/plantillaComun.xhtml">
@@ -23,21 +23,19 @@
                 <h:form>
                     <h:panelGrid columns="2">
                         <p:outputLabel>Indicaciones: </p:outputLabel>
-                        <p:inputTextarea required="false" value="#{prescripcionControlador.indicaciones}"/>
+                        <p:inputTextarea required="false" value="#{prescripcionControlador.indicaciones}" placeholder="#{prescripcionControlador.prescripcionAModificar.indicaciones}"/>
                         <p:outputLabel>Medicamento: </p:outputLabel>
-                        <p:autoComplete required="false" id="acSimple" value="#{prescripcionControlador.nombreMedicamentoActual}" completeMethod="#{prescripcionControlador.completarMedicamentos}" />
+                        <p:autoComplete required="false" id="acSimple" value="#{prescripcionControlador.nombreMedicamentoActual}" completeMethod="#{prescripcionControlador.completarMedicamentos}" placeholder="#{prescripcionControlador.prescripcionAModificar.medicamento.nombre}" />
                         <p:outputLabel>Dosis diaria: </p:outputLabel>
                         <p:inputNumber required="false" value="#{prescripcionControlador.dosisDiaria}" decimalPlaces="0"/>
                         <p:outputLabel>Fecha de Inicio: </p:outputLabel>
-                        <p:calendar required="false" value="#{prescripcionControlador.fechaInicio}"/>
+                        <p:calendar required="false" value="#{prescripcionControlador.fechaInicio}" />
                         <p:outputLabel>Fecha de Finalización: </p:outputLabel>
-                        <p:calendar required="false" value="#{prescripcionControlador.fechaFin}"/>
+                        <p:calendar required="false" value="#{prescripcionControlador.fechaFin}" />
                     </h:panelGrid>
-                    <p:commandButton value="Crear prescripción" 
+                    <p:commandButton value="Modificar prescripcion" 
                                      icon="ui-icon-pencil" 
-                                     action="#{prescripcionControlador.crear()}"/>
-                    <p:commandButton immediate="true" value="Completar" icon="fa fa-check"
-                                     action="#{prescripcionControlador.finalizar()}"/>
+                                     action="#{prescripcionControlador.modificar()}"/>
                 </h:form>
             </ui:define>
         </ui:composition>

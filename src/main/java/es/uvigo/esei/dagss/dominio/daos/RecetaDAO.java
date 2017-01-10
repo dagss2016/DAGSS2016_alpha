@@ -17,6 +17,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 @LocalBean
 public class RecetaDAO extends GenericoDAO<Receta>{
+    
     public List<Receta> getRecetasActuales(String nTarjeta){
         Date fecha = Calendar.getInstance().getTime(); //TODO usar a partir de una fecha a mayores
         TypedQuery<Receta> tq = em.createQuery("SELECT r FROM Receta AS r"
@@ -26,4 +27,14 @@ public class RecetaDAO extends GenericoDAO<Receta>{
         List<Receta> toret = tq.getResultList();
         return toret;
     }
+
+    public List<Receta> getRecetasPrescripcion(Long id) {
+        TypedQuery<Receta> tq = em.createQuery("SELECT r FROM Receta AS r"
+                + " WHERE r.prescripcion.id = :id", Receta.class); 
+        tq.setParameter("id", id);
+        List<Receta> toret = tq.getResultList();
+        return toret;
+    }
+
+   
 }
